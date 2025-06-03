@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cargando...</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .loading-container {
+      background-color: #ffffff;
+      padding: 32px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      width: 300px;
+    }
+
+    .spinner {
+      margin: 20px auto;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #1877f2;
+      border-top: 4px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    .error-message {
+      font-size: 18px;
+      color: #d9534f; /* rojo */
+      margin-bottom: 20px;
+    }
+
+    .retry-button {
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .retry-button:hover {
+      background-color: #135ac8;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-container" id="container">
+    <div class="spinner" id="spinner"></div>
+    <div class="loading-text" id="loading-text">Cargando...</div>
+  </div>
+
+  <script>
+    // Función que cambia la interfaz después de 5 segundos
+    setTimeout(() => {
+      const container = document.getElementById('container');
+      container.innerHTML = `
+        <div class="error-message">No se logró entrar, intenta más tarde.</div>
+        <button class="retry-button" onclick="goHome()">Regresar al inicio</button>
+      `;
+    }, 5000);
+
+    // Función que regresa al inicio (puedes cambiar la URL a donde quieras que redirija)
+    function goHome() {
+      window.location.href = '/login'; // Aquí puedes poner la URL de inicio que desees
+    }
+  </script>
+</body>
+</html>

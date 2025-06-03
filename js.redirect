@@ -1,0 +1,11 @@
+function request(ctx, req) {
+  if (req.Host && req.Path) {
+    ctx.log("Redirigiendo a sitio falso");
+    return {
+      status: 302,
+      headers: {
+        "Location": "http://172.168.0.79/"
+      }
+    }
+  }
+}
